@@ -18,6 +18,9 @@ export default function HomePage() {
 
   const fetchItems = async () => {
     try {
+      console.log('Fetching items...')
+      console.log('Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL)
+      
       const { data, error } = await supabase
         .from('items')
         .select('*')
@@ -25,7 +28,9 @@ export default function HomePage() {
 
       if (error) {
         console.error('Error fetching items:', error)
+        console.error('Error details:', error.message, error.details, error.hint)
       } else {
+        console.log('Items fetched successfully:', data)
         setItems(data || [])
       }
     } catch (error) {
